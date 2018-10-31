@@ -5,8 +5,8 @@ class Pixel {               // A  pixel object knows about its location in the g
 
   // Pixel Constructor
   Pixel(float tempX, float tempY, float tempW, float tempH) {
-    x = 184+tempX;
-    y = 369+tempY;
+    x = ui_monitorOffset[0]+tempX;
+    y = ui_monitorOffset[1]+tempY;
     w = tempW;
     h = tempH;
   }
