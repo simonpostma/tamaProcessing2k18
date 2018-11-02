@@ -2,7 +2,7 @@ void func_menuFeed () {
 }
 
 void func_menuLight() {       
-    env_lightSwitch = !env_lightSwitch;
+  env_lightSwitch = !env_lightSwitch;
 }
 
 void func_menuMedicate() {
