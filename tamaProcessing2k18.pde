@@ -66,6 +66,12 @@ int ui_strokeOpac = 10;
 int ui_framteTime = 500;                                          // show every frame for 500 ms
 int ui_frameTracker = 0;                                          // which frame of the current animation is being shown?
 int ui_animLength = 0;
+int ui_offsetY = 0;                             // how many PX to push down
+int ui_offsetX = 3;                             // How many pixels "padding" from left and right screen border?
+int posX = 3;
+int anim[][][] = {};
+boolean ui_direction = true;                          // 1 = right, -1 = left
+int[][] animFrame = {};
 int[][] ui_movementManagerFrame;
 int core_millisStart = 0;                                         // the first millis value for (time tracking)
 int core_Millis = 0;                                              // the current millis value for (time tracking)
@@ -131,23 +137,11 @@ void setup() {
 }
 
 void draw() {
-  background(img_bgr);                                            // draw the background                          
-  ui_monitorManager(); // Run the monitor manager
+  background(img_bgr);                                            // draw the background         
+  monitor.createPixels();    
   func_timeEvents();                                              // Keep track of time using millis
-  ui_drawAlarm();                                                 // Draw tama's alarm call on screen
-  debug_Operations();                                             // Output stuff to console
+  //ui_drawAlarm();                                                 // Draw tama's alarm call on screen
+  //debug_Operations();                                             // Output stuff to console  
+  display(ui_currentFrame);  
   func_timeTrackerReset();                                        // reset the time event signals
-}
-
-void ui_monitorManager() {                                        // Alle afb. arrays bij elkaar in 1 array (currentFrame) met alle pixels
-  for (int i = 0; i < ui_currentFrame.length; i++) {              // monitor leeg maken
-    Arrays.fill(ui_currentFrame[i], false);
-  }
-  monitor.createPixels();                                         // draw the empty pixels on top of the background
-  monitor.animator(ui_shBabytchi_idleRight);                      // loop through tama's frames
-  //ui_monitorMovementProcessor();                                // calculations relating to movement of tama across the screen
-  //ui_monitorAgregator();                                        // bring all to-draw pixels together after they've been calculated. At this point everything is being put into ui_currentFrame[][]
-  //ui_testAnim();
-  //ui_testDraw();  
-  monitor.display(ui_currentFrame);                               //draw everything that was collected into ui_currentFrame[][] by ui_monitorAgregator()
 }

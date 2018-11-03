@@ -1,7 +1,7 @@
 // ==== Debug stuff ====
 void debug_Operations() {
-  debug_testAnim();
-  debug_testDraw();
+  //debug_testAnim();
+  //debug_testDraw();
   //debug_printConsole();                                           // Output stuff to console
 }
 

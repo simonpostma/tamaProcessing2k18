@@ -1,8 +1,7 @@
 void func_everyHalfSec() {                                  // Run this every half second
-  println(ui_frameTracker);
-  println(ui_animLength);  
-  monitor.ui_frameTracker(ui_shBabytchi_idleRight);
-  offsetX = offsetX + 1;
+  monitor.reset();                                          // monitor leeg maken
+  tama.animate(ui_Stolas_idleRight, ui_Stolas_idleLeft);
+  tama.frameTracker(ui_Stolas_idleRight);
 }
 
 void func_everySec() {                                      // Run this every second
