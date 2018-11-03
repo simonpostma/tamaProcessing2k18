@@ -2,6 +2,7 @@ class tama_Char {               // A  Tamagotchi object knows about its location
   int char_meta_Name;           // The name of the current character
   int char_meta_posX;           // The X position of tama on the monitor
   int char_meta_poxY;           // The Y position of tama on the monitor
+  int char_meta_offsetY;        // The Y axis offset in pixels for the particular character
 
   int char_atr_Hunger;          // The "Atributes" are used by the game calculators to determine how and when to progress tama's needs. This allows for unique behaviors for different characters
   int char_atr_Illness;    
@@ -29,4 +30,14 @@ class tama_Char {               // A  Tamagotchi object knows about its location
   int char_anim_Poop;
   int char_anim_Illness;
   int char_anim_Play;
+
+  tama_Char() {       // constructor
+  }
+
+  void display() {    // with this you can do stuff like "tama.display"
+  }
+  
+  void move() {
+  }
+
 }

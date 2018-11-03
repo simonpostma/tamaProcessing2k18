@@ -1,4 +1,6 @@
-// Probleem om verder mee te gaan: object oriented programming gaan toepassen op tama characters, animaties, etc etc
+// Next goal: 
+//    make everything object oriented programming based.
+//    move     monitor.animator, monitor.ui_monitorMovementProcessor      to tama class so tama manages his own animation
 import java.util.Arrays;
 import ddf.minim.*;                   // Load audio library
 
@@ -24,14 +26,18 @@ boolean[][] ui_currentFrame = ui_emptyFrame;                      // Array with 
 
 // Game config variables
 boolean conf_debugOutput = true;                                  // Is debug mode enabled or disabled
-boolean conf_debugTimer = true;                                           // Print when one of the time units has passed?
+boolean conf_debugTimer = true;                                   // Print when one of the time units has passed?
 boolean ui_drawTestToggle = false;                                // Are we running the drawing test?
 
 // Prepare images
 PImage img_bgr;                                                   // Prepare background image
 PImage img_menuIcon01, img_menuIcon02, img_menuIcon03,            // Prepare the menu icons
-       img_menuIcon04, img_menuIcon05, img_menuIcon06,   
-       img_menuIcon07, img_menuIcon08;
+  img_menuIcon04, img_menuIcon05, img_menuIcon06, 
+  img_menuIcon07, img_menuIcon08;
+
+// Tama class related
+tama_Char tama;
+Monitor monitor;
 
 // Audio
 Minim sfx_minim;                                                  // Load audio library
@@ -92,7 +98,9 @@ boolean tama_alarmCall = false;                                   // Is tama cal
 void setup() {
   // Technical  
   core_millisStart = millis();
-  
+  tama = new tama_Char();                                         // execute Tama constructor.
+  monitor = new Monitor();
+
   size(680, 820);                                                 // Set window size
   img_bgr = loadImage("background.png");                          // Load background image file
   ui_pixelMonitor = new Pixel[ui_pixelMonitor_cols][ui_pixelMonitor_rows];
@@ -123,12 +131,23 @@ void setup() {
 }
 
 void draw() {
-  background(img_bgr);                                            // draw the background
-
-  ui_createPixels();                                              // draw the empty pixels on top of the background
+  background(img_bgr);                                            // draw the background                          
   ui_monitorManager(); // Run the monitor manager
   func_timeEvents();                                              // Keep track of time using millis
   ui_drawAlarm();                                                 // Draw tama's alarm call on screen
   debug_Operations();                                             // Output stuff to console
   func_timeTrackerReset();                                        // reset the time event signals
+}
+
+void ui_monitorManager() {                                        // Alle afb. arrays bij elkaar in 1 array (currentFrame) met alle pixels
+  for (int i = 0; i < ui_currentFrame.length; i++) {              // monitor leeg maken
+    Arrays.fill(ui_currentFrame[i], false);
+  }
+  monitor.createPixels();                                         // draw the empty pixels on top of the background
+  monitor.animator(ui_shBabytchi_idleRight);                      // loop through tama's frames
+  //ui_monitorMovementProcessor();                                // calculations relating to movement of tama across the screen
+  //ui_monitorAgregator();                                        // bring all to-draw pixels together after they've been calculated. At this point everything is being put into ui_currentFrame[][]
+  //ui_testAnim();
+  //ui_testDraw();  
+  monitor.display(ui_currentFrame);                               //draw everything that was collected into ui_currentFrame[][] by ui_monitorAgregator()
 }
